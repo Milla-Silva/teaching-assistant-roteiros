@@ -11,4 +11,4 @@ Feature: Script Performance Report
   Scenario: Identify response time discrepancies between classes
     Given the current class finished the script
     When I compare the average completion time with past classes
-    Then the system should highlight if the current class took longer to complete
+    Then the system should highlight if the current class took longer  to complete
