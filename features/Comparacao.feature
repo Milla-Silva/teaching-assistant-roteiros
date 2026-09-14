@@ -13,3 +13,8 @@ Feature: Script Performance Report
     When I compare the average completion time with past classes
     Then the system should highlight if the current class took longer  to complete
     Then the report summary should be updated
+  
+  Scenario: Export raw experimental data
+    Given experimental data is ready
+    When I request raw data export
+    Then raw files should be downloaded
