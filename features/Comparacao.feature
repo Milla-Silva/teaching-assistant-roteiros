@@ -12,3 +12,8 @@ Feature: Script Performance Report
     Given the current class finished the script
     When I compare the average completion time with past classes
     Then the system should highlight if the current class took longer  to complete
+  
+  Scenario: Experimental analytics metric
+    Given the report dashboard is loaded
+    When I process experimental metrics
+    Then the system should generate real-time charts
