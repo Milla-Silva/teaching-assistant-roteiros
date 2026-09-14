@@ -18,3 +18,8 @@ Feature: Script Performance Report
     Given experimental data is ready
     When I request raw data export
     Then raw files should be downloaded
+  
+  Scenario: Experimental analytics metric
+    Given the report dashboard is loaded
+    When I process experimental metrics
+    Then the system should generate real-time charts
