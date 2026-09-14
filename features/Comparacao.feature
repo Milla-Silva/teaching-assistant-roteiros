@@ -23,3 +23,4 @@ Feature: Script Performance Report
     Given the report dashboard is loaded
     When I process experimental metrics
     Then the system should generate real-time charts
+  
