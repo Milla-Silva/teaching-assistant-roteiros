@@ -24,3 +24,4 @@ Feature: Script Performance Report
     When I process experimental metrics
     Then the system should generate real-time charts
   
+    Then the system sho uld generate real-time charts
