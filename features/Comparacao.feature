@@ -1,158 +1,159 @@
-Feature: Script Performance Report
-  As a professor responsible for a class
-  I want to see the performance of my class in a script compared to past classes
-  so that I can evaluate if the class is better or worse than previous ones and adjust my teaching
+# language: pt
+Feature: Relatório de Desempenho do Roteiro
+  Como um professor responsável por uma turma
+  Eu quero ver o desempenho da minha turma em um roteiro comparado a turmas passadas
+  Para que eu possa avaliar se a turma está melhor ou pior que as anteriores e ajustar meu ensino
 
-  # GUI scenarios
+  # Cenários de GUI (Interface de Usuário)
 
-  Scenario: view the comparison with the average of several past classes web
-    Given I am logged in as "Professor" with login "pcosv" and password "1234"
-    And I am responsible for the class "ESS - 2026.2"
-    And the system has the performance of the class "ESS - 2026.2" in the script "Requirements" with average correct answers "70%", average errors "30%" and average time "40 min"
-    And the system has the performance of the class "ESS - 2025.2" in the script "Requirements" with average correct answers "65%", average errors "35%" and average time "45 min"
-    And the script "Requirements" of the class "ESS - 2025.2" is linked to the script "Requirements" of the class "ESS - 2026.2"
-    And the system has the performance of the class "ESS - 2025.1" in the script "Requirements" with average correct answers "80%", average errors "20%" and average time "30 min"
-    And the script "Requirements" of the class "ESS - 2025.1" is linked to the script "Requirements" of the class "ESS - 2026.2"
-    When I open the page "Script performance report" of the class "ESS - 2026.2" for the script "Requirements"
-    Then I am on the page "Script performance report"
-    And I see in the row "ESS - 2026.2" average correct answers "70%", average errors "30%" and average time "40 min"
-    And I see in the row "Average of past classes" average correct answers "72.5%", average errors "27.5%" and average time "37.5 min"
-    And I see in the row "Difference" average correct answers "-2.5 pp", average errors "+2.5 pp" and average time "+2.5 min"
+  Scenario: Visualizar a comparação com a média de várias turmas passadas na web
+    Given que estou autenticado como "Professor"
+    And sou responsável pela turma "ESS - 2026.2"
+    And o sistema possui o desempenho da turma "ESS - 2026.2" no roteiro "Requisitos" com média de acertos "70%", média de erros "30%" e tempo médio "40 min"
+    And o sistema possui o desempenho da turma "ESS - 2025.2" no roteiro "Requisitos" com média de acertos "65%", média de erros "35%" e tempo médio "45 min"
+    And o roteiro "Requisitos" da turma "ESS - 2025.2" está vinculado ao roteiro "Requisitos" da turma "ESS - 2026.2"
+    And o sistema possui o desempenho da turma "ESS - 2025.1" no roteiro "Requisitos" com média de acertos "80%", média de erros "20%" e tempo médio "30 min"
+    And o roteiro "Requisitos" da turma "ESS - 2025.1" está vinculado ao roteiro "Requisitos" da turma "ESS - 2026.2"
+    When eu abro a página "Relatório de desempenho do roteiro" da turma "ESS - 2026.2" para o roteiro "Requisitos"
+    Then eu estou na página "Relatório de desempenho do roteiro"
+    And eu vejo na linha "ESS - 2026.2" a média de acertos "70%", média de erros "30%" e tempo médio "40 min"
+    And eu vejo na linha "Média das turmas passadas" a média de acertos "72.5%", média de erros "27.5%" e tempo médio "37.5 min"
+    And eu vejo na linha "Diferença" a média de acertos "-2.5 pp", média de erros "+2.5 pp" e tempo médio "+2.5 min"
 
-  Scenario: view only the class performance when there are no linked past classes web
-    Given I am logged in as "Professor" with login "pcosv" and password "1234"
-    And I am responsible for the class "ESS - 2026.2"
-    And the system has the performance of the class "ESS - 2026.2" in the script "Requirements" with average correct answers "70%", average errors "30%" and average time "40 min"
-    And no script of a past class is linked to the script "Requirements" of the class "ESS - 2026.2"
-    When I open the page "Script performance report" of the class "ESS - 2026.2" for the script "Requirements"
-    Then I am on the page "Script performance report"
-    And I see the message "There are no past classes linked to the script Requirements"
-    And I see in the row "ESS - 2026.2" average correct answers "70%", average errors "30%" and average time "40 min"
-    And I do not see the rows "Average of past classes" and "Difference"
+  Scenario: Visualizar apenas o desempenho da turma quando não houver turmas passadas vinculadas na web
+    Given que estou autenticado como "Professor"
+    And sou responsável pela turma "ESS - 2026.2"
+    And o sistema possui o desempenho da turma "ESS - 2026.2" no roteiro "Requisitos" com média de acertos "70%", média de erros "30%" e tempo médio "40 min"
+    And nenhum roteiro de turma passada está vinculado ao roteiro "Requisitos" da turma "ESS - 2026.2"
+    When eu abro a página "Relatório de desempenho do roteiro" da turma "ESS - 2026.2" para o roteiro "Requisitos"
+    Then eu estou na página "Relatório de desempenho do roteiro"
+    And eu vejo a mensagem "Não há turmas passadas vinculadas ao roteiro Requisitos"
+    And eu vejo na linha "ESS - 2026.2" a média de acertos "70%", média de erros "30%" e tempo médio "40 min"
+    And eu não vejo as linhas "Média das turmas passadas" e "Diferença"
 
-  Scenario: view only the average of past classes when the current class has no answers web
-    Given I am logged in as "Professor" with login "pcosv" and password "1234"
-    And I am responsible for the class "ESS - 2026.2"
-    And the class "ESS - 2026.2" has applied the script "Requirements" but has no registered answers
-    And the system has the performance of the class "ESS - 2025.2" in the script "Requirements" with average correct answers "65%", average errors "35%" and average time "45 min"
-    And the script "Requirements" of the class "ESS - 2025.2" is linked to the script "Requirements" of the class "ESS - 2026.2"
-    When I open the page "Script performance report" of the class "ESS - 2026.2" for the script "Requirements"
-    Then I am on the page "Script performance report"
-    And I see in the row "Average of past classes" average correct answers "65%", average errors "35%" and average time "45 min"
-    And I do not see the rows "ESS - 2026.2" and "Difference"
+  Scenario: Visualizar apenas a média de turmas passadas quando a turma atual não possui respostas na web
+    Given que estou autenticado como "Professor"
+    And sou responsável pela turma "ESS - 2026.2"
+    And a turma "ESS - 2026.2" aplicou o roteiro "Requisitos", mas não possui respostas registradas
+    And o sistema possui o desempenho da turma "ESS - 2025.2" no roteiro "Requisitos" com média de acertos "65%", média de erros "35%" e tempo médio "45 min"
+    And o roteiro "Requisitos" da turma "ESS - 2025.2" está vinculado ao roteiro "Requisitos" da turma "ESS - 2026.2"
+    When eu abro a página "Relatório de desempenho do roteiro" da turma "ESS - 2026.2" para o roteiro "Requisitos"
+    Then eu estou na página "Relatório de desempenho do roteiro"
+    And eu vejo na linha "Média das turmas passadas" a média de acertos "65%", média de erros "35%" e tempo médio "45 min"
+    And eu não vejo as linhas "ESS - 2026.2" e "Diferença"
 
-  Scenario: past class without answers is not included in the average web
-    Given I am logged in as "Professor" with login "pcosv" and password "1234"
-    And I am responsible for the class "ESS - 2026.2"
-    And the system has the performance of the class "ESS - 2026.2" in the script "Requirements" with average correct answers "70%", average errors "30%" and average time "40 min"
-    And the system has the performance of the class "ESS - 2025.1" in the script "Requirements" with average correct answers "80%", average errors "20%" and average time "30 min"
-    And the script "Requirements" of the class "ESS - 2025.1" is linked to the script "Requirements" of the class "ESS - 2026.2"
-    And the class "ESS - 2025.2" has applied the script "Requirements" but has no registered answers
-    And the script "Requirements" of the class "ESS - 2025.2" is linked to the script "Requirements" of the class "ESS - 2026.2"
-    When I open the page "Script performance report" of the class "ESS - 2026.2" for the script "Requirements"
-    Then I am on the page "Script performance report"
-    And I see in the row "Average of past classes" average correct answers "80%", average errors "20%" and average time "30 min"
-    And I see in the row "Difference" average correct answers "-10 pp", average errors "+10 pp" and average time "+10 min"
+  Scenario: Turma passada sem respostas não é incluída na média na web
+    Given que estou autenticado como "Professor"
+    And sou responsável pela turma "ESS - 2026.2"
+    And o sistema possui o desempenho da turma "ESS - 2026.2" no roteiro "Requisitos" com média de acertos "70%", média de erros "30%" e tempo médio "40 min"
+    And o sistema possui o desempenho da turma "ESS - 2025.1" no roteiro "Requisitos" com média de acertos "80%", média de erros "20%" e tempo médio "30 min"
+    And o roteiro "Requisitos" da turma "ESS - 2025.1" está vinculado ao roteiro "Requisitos" da turma "ESS - 2026.2"
+    And a turma "ESS - 2025.2" aplicou o roteiro "Requisitos", mas não possui respostas registradas
+    And o roteiro "Requisitos" da turma "ESS - 2025.2" está vinculado ao roteiro "Requisitos" da turma "ESS - 2026.2"
+    When eu abro a página "Relatório de desempenho do roteiro" da turma "ESS - 2026.2" para o roteiro "Requisitos"
+    Then eu estou na página "Relatório de desempenho do roteiro"
+    And eu vejo na linha "Média das turmas passadas" a média de acertos "80%", média de erros "20%" e tempo médio "30 min"
+    And eu vejo na linha "Diferença" a média de acertos "-10 pp", média de erros "+10 pp" e tempo médio "+10 min"
 
-  Scenario: script of a past class that is not linked is not included in the average web
-    Given I am logged in as "Professor" with login "pcosv" and password "1234"
-    And I am responsible for the class "ESS - 2026.2"
-    And the system has the performance of the class "ESS - 2026.2" in the script "Requirements" with average correct answers "70%", average errors "30%" and average time "40 min"
-    And the system has the performance of the class "ESS - 2025.2" in the script "Requirements" with average correct answers "65%", average errors "35%" and average time "45 min"
-    And the script "Requirements" of the class "ESS - 2025.2" is linked to the script "Requirements" of the class "ESS - 2026.2"
-    And the system has the performance of the class "ESS - 2025.1" in the script "Requirements" with average correct answers "80%", average errors "20%" and average time "30 min"
-    And the script "Requirements" of the class "ESS - 2025.1" is not linked to the script "Requirements" of the class "ESS - 2026.2"
-    When I open the page "Script performance report" of the class "ESS - 2026.2" for the script "Requirements"
-    Then I am on the page "Script performance report"
-    And I see in the row "Average of past classes" average correct answers "65%", average errors "35%" and average time "45 min"
-    And I see in the row "Difference" average correct answers "+5 pp", average errors "-5 pp" and average time "-5 min"
+  Scenario: Roteiro de uma turma passada que não está vinculado não é incluído na média na web
+    Given que estou autenticado como "Professor"
+    And sou responsável pela turma "ESS - 2026.2"
+    And o sistema possui o desempenho da turma "ESS - 2026.2" no roteiro "Requisitos" com média de acertos "70%", média de erros "30%" e tempo médio "40 min"
+    And o sistema possui o desempenho da turma "ESS - 2025.2" no roteiro "Requisitos" com média de acertos "65%", média de erros "35%" e tempo médio "45 min"
+    And o roteiro "Requisitos" da turma "ESS - 2025.2" está vinculado ao roteiro "Requisitos" da turma "ESS - 2026.2"
+    And o sistema possui o desempenho da turma "ESS - 2025.1" no roteiro "Requisitos" com média de acertos "80%", média de erros "20%" e tempo médio "30 min"
+    And o roteiro "Requisitos" da turma "ESS - 2025.1" não está vinculado ao roteiro "Requisitos" da turma "ESS - 2026.2"
+    When eu abro a página "Relatório de desempenho do roteiro" da turma "ESS - 2026.2" para o roteiro "Requisitos"
+    Then eu estou na página "Relatório de desempenho do roteiro"
+    And eu vejo na linha "Média das turmas passadas" a média de acertos "65%", média de erros "35%" e tempo médio "45 min"
+    And eu vejo na linha "Diferença" a média de acertos "+5 pp", média de erros "-5 pp" e tempo médio "-5 min"
 
-  Scenario: link the script of a past class to the current script web
-    Given I am logged in as "Professor" with login "pcosv" and password "1234"
-    And I am responsible for the class "ESS - 2026.2"
-    And the system has the performance of the class "ESS - 2026.2" in the script "Requirements" with average correct answers "70%", average errors "30%" and average time "40 min"
-    And the system has the performance of the class "ESS - 2025.2" in the script "Requirements" with average correct answers "65%", average errors "35%" and average time "45 min"
-    And the script "Requirements" of the class "ESS - 2025.2" is not linked to the script "Requirements" of the class "ESS - 2026.2"
-    When I inform that the script "Requirements" of the class "ESS - 2025.2" matches the script "Requirements" of the class "ESS - 2026.2"
-    Then I am on the page "Script performance report"
-    And I see in the row "Average of past classes" average correct answers "65%", average errors "35%" and average time "45 min"
-    And I see in the row "Difference" average correct answers "+5 pp", average errors "-5 pp" and average time "-5 min"
+  Scenario: Vincular o roteiro de uma turma passada ao roteiro atual na web
+    Given que estou autenticado como "Professor"
+    And sou responsável pela turma "ESS - 2026.2"
+    And o sistema possui o desempenho da turma "ESS - 2026.2" no roteiro "Requisitos" com média de acertos "70%", média de erros "30%" e tempo médio "40 min"
+    And o sistema possui o desempenho da turma "ESS - 2025.2" no roteiro "Requisitos" com média de acertos "65%", média de erros "35%" e tempo médio "45 min"
+    And o roteiro "Requisitos" da turma "ESS - 2025.2" não está vinculado ao roteiro "Requisitos" da turma "ESS - 2026.2"
+    When eu informo que o roteiro "Requisitos" da turma "ESS - 2025.2" corresponde ao roteiro "Requisitos" da turma "ESS - 2026.2"
+    Then eu estou na página "Relatório de desempenho do roteiro"
+    And eu vejo na linha "Média das turmas passadas" a média de acertos "65%", média de erros "35%" e tempo médio "45 min"
+    And eu vejo na linha "Diferença" a média de acertos "+5 pp", média de erros "-5 pp" e tempo médio "-5 min"
 
-  Scenario: import the performance of a past class from a spreadsheet web
-    Given I am logged in as "Professor" with login "pcosv" and password "1234"
-    And I am responsible for the class "ESS - 2026.2"
-    And the system has no performance of the class "ESS - 2025.2" in the script "Requirements"
-    And I have the spreadsheet "ESS 2025.2 performance" with the class "ESS - 2025.2", the script "Requirements", average correct answers "65%", average errors "35%" and average time "45 min"
-    And I am on the page "Past class performance import"
-    When I import the spreadsheet "ESS 2025.2 performance"
-    Then I see the message "Performance imported successfully"
-    And the system has the performance of the class "ESS - 2025.2" in the script "Requirements" with average correct answers "65%", average errors "35%" and average time "45 min"
+  Scenario: Importar o desempenho de uma turma passada a partir de uma planilha na web
+    Given que estou autenticado como "Professor"
+    And sou responsável pela turma "ESS - 2026.2"
+    And o sistema não possui o desempenho da turma "ESS - 2025.2" no roteiro "Requisitos"
+    And eu tenho a planilha "desempenho_ESS_2025.2" com a turma "ESS - 2025.2", o roteiro "Requisitos", média de acertos "65%", média de erros "35%" e tempo médio "45 min"
+    And estou na página "Importação de desempenho de turmas passadas"
+    When eu importo a planilha "desempenho_ESS_2025.2"
+    Then eu vejo a mensagem "Desempenho importado com sucesso"
+    And o sistema possui o desempenho da turma "ESS - 2025.2" no roteiro "Requisitos" com média de acertos "65%", média de erros "35%" e tempo médio "45 min"
 
-  Scenario: import a spreadsheet without a required column web
-    Given I am logged in as "Professor" with login "pcosv" and password "1234"
-    And I am responsible for the class "ESS - 2026.2"
-    And the system has no performance of the class "ESS - 2025.2" in the script "Requirements"
-    And I have the spreadsheet "ESS 2025.2 performance" without the column "Average correct answers"
-    And I am on the page "Past class performance import"
-    When I import the spreadsheet "ESS 2025.2 performance"
-    Then I see the message "Invalid spreadsheet: missing column Average correct answers"
-    And the system still has no performance of the class "ESS - 2025.2" in the script "Requirements"
+  Scenario: Importar planilha sem coluna obrigatória na web
+    Given que estou autenticado como "Professor"
+    And sou responsável pela turma "ESS - 2026.2"
+    And o sistema não possui o desempenho da turma "ESS - 2025.2" no roteiro "Requisitos"
+    And eu tenho a planilha "desempenho_ESS_2025.2" sem a coluna "Média de acertos"
+    And estou na página "Importação de desempenho de turmas passadas"
+    When eu importo a planilha "desempenho_ESS_2025.2"
+    Then eu vejo a mensagem "Planilha inválida: coluna Média de acertos ausente"
+    And o sistema continua sem o desempenho da turma "ESS - 2025.2" no roteiro "Requisitos"
 
   @optional
-  Scenario: export the report as PDF web
-    Given I am logged in as "Professor" with login "pcosv" and password "1234"
-    And I am responsible for the class "ESS - 2026.2"
-    And the system has the performance of the class "ESS - 2026.2" in the script "Requirements" with average correct answers "70%", average errors "30%" and average time "40 min"
-    And the system has the performance of the class "ESS - 2025.2" in the script "Requirements" with average correct answers "65%", average errors "35%" and average time "45 min"
-    And the script "Requirements" of the class "ESS - 2025.2" is linked to the script "Requirements" of the class "ESS - 2026.2"
-    And I am on the page "Script performance report" of the class "ESS - 2026.2" for the script "Requirements"
-    When I request to export the report as PDF
-    Then I receive a PDF file with the report
-    And the PDF has in the row "ESS - 2026.2" average correct answers "70%", average errors "30%" and average time "40 min"
-    And the PDF has in the row "Average of past classes" average correct answers "65%", average errors "35%" and average time "45 min"
-    And the PDF has in the row "Difference" average correct answers "+5 pp", average errors "-5 pp" and average time "-5 min"
+  Scenario: Exportar o relatório como PDF na web
+    Given que estou autenticado como "Professor"
+    And sou responsável pela turma "ESS - 2026.2"
+    And o sistema possui o desempenho da turma "ESS - 2026.2" no roteiro "Requisitos" com média de acertos "70%", média de erros "30%" e tempo médio "40 min"
+    And o sistema possui o desempenho da turma "ESS - 2025.2" no roteiro "Requisitos" com média de acertos "65%", média de erros "35%" e tempo médio "45 min"
+    And o roteiro "Requisitos" da turma "ESS - 2025.2" está vinculado ao roteiro "Requisitos" da turma "ESS - 2026.2"
+    And estou na página "Relatório de desempenho do roteiro" da turma "ESS - 2026.2" para o roteiro "Requisitos"
+    When eu solicito exportar o relatório como PDF
+    Then eu recebo um arquivo PDF com o relatório
+    And o PDF contém na linha "ESS - 2026.2" a média de acertos "70%", média de erros "30%" e tempo médio "40 min"
+    And o PDF contém na linha "Média das turmas passadas" a média de acertos "65%", média de erros "35%" e tempo médio "45 min"
+    And o PDF contém na linha "Diferença" a média de acertos "+5 pp", média de erros "-5 pp" e tempo médio "-5 min"
 
-  Scenario: student cannot see the report web
-    Given I am logged in as "Student" with login "mariana" and password "1234"
-    And I am enrolled in the class "ESS - 2026.2"
-    And the system has the performance of the class "ESS - 2026.2" in the script "Requirements" with average correct answers "70%", average errors "30%" and average time "40 min"
-    When I try to open the page "Script performance report" of the class "ESS - 2026.2" for the script "Requirements"
-    Then I see the message "Access denied"
-    And I do not see the performance of any class
+  Scenario: Aluno não pode ver o relatório na web
+    Given que estou autenticado como "Aluno"
+    And estou matriculado na turma "ESS - 2026.2"
+    And o sistema possui o desempenho da turma "ESS - 2026.2" no roteiro "Requisitos" com média de acertos "70%", média de erros "30%" e tempo médio "40 min"
+    When eu tento abrir a página "Relatório de desempenho do roteiro" da turma "ESS - 2026.2" para o roteiro "Requisitos"
+    Then eu vejo a mensagem "Acesso negado"
+    And eu não vejo o desempenho de nenhuma turma
 
-  # Service scenarios
+  # Cenários de Serviço (Backend/API)
 
-  Scenario: get the report with the average of several past classes
-    Given I access the system as "professor" with login "pcosv"
-    And I am responsible for the class "ESS - 2026.2"
-    And the system has the performance of the class "ESS - 2026.2" in the script "Requirements" with average correct answers "70%", average errors "30%" and average time "40 min"
-    And the system has the performance of the class "ESS - 2025.2" in the script "Requirements" with average correct answers "65%", average errors "35%" and average time "45 min"
-    And the script "Requirements" of the class "ESS - 2025.2" is linked to the script "Requirements" of the class "ESS - 2026.2"
-    And the system has the performance of the class "ESS - 2025.1" in the script "Requirements" with average correct answers "80%", average errors "20%" and average time "30 min"
-    And the script "Requirements" of the class "ESS - 2025.1" is linked to the script "Requirements" of the class "ESS - 2026.2"
-    When I ask the system for the performance report of the class "ESS - 2026.2" in the script "Requirements"
-    Then the system returns for "ESS - 2026.2" average correct answers "70%", average errors "30%" and average time "40 min"
-    And the system returns for "Average of past classes" average correct answers "72.5%", average errors "27.5%" and average time "37.5 min"
-    And the system returns for "Difference" average correct answers "-2.5 pp", average errors "+2.5 pp" and average time "+2.5 min"
-    And the system still has the performance of the class "ESS - 2026.2" in the script "Requirements" with average correct answers "70%", average errors "30%" and average time "40 min"
+  Scenario: Obter o relatório com a média de várias turmas passadas via serviço
+    Given que acesso o sistema como "Professor"
+    And sou responsável pela turma "ESS - 2026.2"
+    And o sistema possui o desempenho da turma "ESS - 2026.2" no roteiro "Requisitos" com média de acertos "70%", média de erros "30%" e tempo médio "40 min"
+    And o sistema possui o desempenho da turma "ESS - 2025.2" no roteiro "Requisitos" com média de acertos "65%", média de erros "35%" e tempo médio "45 min"
+    And o roteiro "Requisitos" da turma "ESS - 2025.2" está vinculado ao roteiro "Requisitos" da turma "ESS - 2026.2"
+    And o sistema possui o desempenho da turma "ESS - 2025.1" no roteiro "Requisitos" com média de acertos "80%", média de erros "20%" e tempo médio "30 min"
+    And o roteiro "Requisitos" da turma "ESS - 2025.1" está vinculado ao roteiro "Requisitos" da turma "ESS - 2026.2"
+    When eu solicito ao sistema o relatório de desempenho da turma "ESS - 2026.2" no roteiro "Requisitos"
+    Then o sistema retorna para "ESS - 2026.2" média de acertos "70%", média de erros "30%" e tempo médio "40 min"
+    And o sistema retorna para "Média das turmas passadas" média de acertos "72.5%", média de erros "27.5%" e tempo médio "37.5 min"
+    And o sistema retorna para "Diferença" média de acertos "-2.5 pp", média de erros "+2.5 pp" e tempo médio "+2.5 min"
+    And o sistema ainda possui o desempenho da turma "ESS - 2026.2" no roteiro "Requisitos" com média de acertos "70%", média de erros "30%" e tempo médio "40 min"
 
-  Scenario: link the script of a past class to the current script
-    Given I access the system as "professor" with login "pcosv"
-    And I am responsible for the class "ESS - 2026.2"
-    And the system has the performance of the class "ESS - 2026.2" in the script "Requirements" with average correct answers "70%", average errors "30%" and average time "40 min"
-    And the system has the performance of the class "ESS - 2025.2" in the script "Requirements" with average correct answers "65%", average errors "35%" and average time "45 min"
-    And the script "Requirements" of the class "ESS - 2025.2" is not linked to the script "Requirements" of the class "ESS - 2026.2"
-    When I ask the system to link the script "Requirements" of the class "ESS - 2025.2" to the script "Requirements" of the class "ESS - 2026.2"
-    Then the system returns the link confirmation
-    And the script "Requirements" of the class "ESS - 2025.2" is linked to the script "Requirements" of the class "ESS - 2026.2"
-    And the system still has the performance of the class "ESS - 2026.2" in the script "Requirements" with average correct answers "70%", average errors "30%" and average time "40 min"
-    And the system still has the performance of the class "ESS - 2025.2" in the script "Requirements" with average correct answers "65%", average errors "35%" and average time "45 min"
+  Scenario: Vincular o roteiro de uma turma passada ao roteiro atual via serviço
+    Given que acesso o sistema como "Professor"
+    And sou responsável pela turma "ESS - 2026.2"
+    And o sistema possui o desempenho da turma "ESS - 2026.2" no roteiro "Requirements" com média de acertos "70%", média de erros "30%" e tempo médio "40 min"
+    And o sistema possui o desempenho da turma "ESS - 2025.2" no roteiro "Requirements" com média de acertos "65%", média de erros "35%" e tempo médio "45 min"
+    And o roteiro "Requirements" da turma "ESS - 2025.2" não está vinculado ao roteiro "Requirements" da turma "ESS - 2026.2"
+    When eu solicito ao sistema para vincular o roteiro "Requirements" da turma "ESS - 2025.2" ao roteiro "Requirements" da turma "ESS - 2026.2"
+    Then o sistema retorna a confirmação de vínculo
+    And o roteiro "Requirements" da turma "ESS - 2025.2" está vinculado ao roteiro "Requirements" da turma "ESS - 2026.2"
+    And o sistema ainda possui o desempenho da turma "ESS - 2026.2" no roteiro "Requirements" com média de acertos "70%", média de erros "30%" e tempo médio "40 min"
+    And o sistema ainda possui o desempenho da turma "ESS - 2025.2" no roteiro "Requirements" com média de acertos "65%", média de erros "35%" e tempo médio "45 min"
 
-  Scenario: import the performance of a past class from a spreadsheet
-    Given I access the system as "professor" with login "pcosv"
-    And I am responsible for the class "ESS - 2026.2"
-    And the system has no performance of the class "ESS - 2025.2" in the script "Requirements"
-    And I have the spreadsheet "ESS 2025.2 performance" with the class "ESS - 2025.2", the script "Requirements", average correct answers "65%", average errors "35%" and average time "45 min"
-    When I send the spreadsheet "ESS 2025.2 performance" to the system
-    Then the system returns the import confirmation
-    And the system has the performance of the class "ESS - 2025.2" in the script "Requirements" with average correct answers "65%", average errors "35%" and average time "45 min"
+  Scenario: Importar o desempenho de uma turma passada a partir de uma planilha via serviço
+    Given que acesso o sistema como "Professor"
+    And sou responsável pela turma "ESS - 2026.2"
+    And o sistema não possui o desempenho da turma "ESS - 2025.2" no roteiro "Requisitos"
+    And eu tenho a planilha "desempenho_ESS_2025.2" com a turma "ESS - 2025.2", o roteiro "Requisitos", média de acertos "65%", média de erros "35%" e tempo médio "45 min"
+    When eu envio a planilha "desempenho_ESS_2025.2" para o sistema
+    Then o sistema retorna a confirmação de importação
+    And o sistema possui o desempenho da turma "ESS - 2025.2" no roteiro "Requisitos" com média de acertos "65%", média de erros "35%" e tempo médio "45 min"
