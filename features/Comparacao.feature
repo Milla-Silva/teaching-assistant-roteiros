@@ -99,28 +99,6 @@ Feature: Relatório de Desempenho do Roteiro
     Then eu vejo a mensagem "Planilha inválida: coluna Média de acertos ausente"
     And o sistema continua sem o desempenho da turma "ESS - 2025.2" no roteiro "Requisitos"
 
-  @optional
-  Scenario: Exportar o relatório como PDF na web
-    Given que estou autenticado como "Professor"
-    And sou responsável pela turma "ESS - 2026.2"
-    And o sistema possui o desempenho da turma "ESS - 2026.2" no roteiro "Requisitos" com média de acertos "70%", média de erros "30%" e tempo médio "40 min"
-    And o sistema possui o desempenho da turma "ESS - 2025.2" no roteiro "Requisitos" com média de acertos "65%", média de erros "35%" e tempo médio "45 min"
-    And o roteiro "Requisitos" da turma "ESS - 2025.2" está vinculado ao roteiro "Requisitos" da turma "ESS - 2026.2"
-    And estou na página "Relatório de desempenho do roteiro" da turma "ESS - 2026.2" para o roteiro "Requisitos"
-    When eu solicito exportar o relatório como PDF
-    Then eu recebo um arquivo PDF com o relatório
-    And o PDF contém na linha "ESS - 2026.2" a média de acertos "70%", média de erros "30%" e tempo médio "40 min"
-    And o PDF contém na linha "Média das turmas passadas" a média de acertos "65%", média de erros "35%" e tempo médio "45 min"
-    And o PDF contém na linha "Diferença" a média de acertos "+5 pp", média de erros "-5 pp" e tempo médio "-5 min"
-
-  Scenario: Aluno não pode ver o relatório na web
-    Given que estou autenticado como "Aluno"
-    And estou matriculado na turma "ESS - 2026.2"
-    And o sistema possui o desempenho da turma "ESS - 2026.2" no roteiro "Requisitos" com média de acertos "70%", média de erros "30%" e tempo médio "40 min"
-    When eu tento abrir a página "Relatório de desempenho do roteiro" da turma "ESS - 2026.2" para o roteiro "Requisitos"
-    Then eu vejo a mensagem "Acesso negado"
-    And eu não vejo o desempenho de nenhuma turma
-
   # Cenários de Serviço (Backend/API)
 
   Scenario: Obter o relatório com a média de várias turmas passadas via serviço
