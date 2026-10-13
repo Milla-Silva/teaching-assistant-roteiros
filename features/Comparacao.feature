@@ -1,4 +1,3 @@
-# language: pt
 Feature: Relatório de Desempenho do Roteiro
   Como um professor responsável por uma turma
   Eu quero ver o desempenho da minha turma em um roteiro comparado a turmas passadas
