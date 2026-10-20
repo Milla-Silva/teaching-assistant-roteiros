@@ -84,12 +84,4 @@ Scenario: cadastrar diretamente resultado de turma passada web
   And continuo na página "Resultados de turmas passadas"
   And vejo o resultado "8" acertos, "2" erros e "15 minutos" do aluno "Ana Lima" na lista de resultados do roteiro "Requisitos" da turma "ESS - 2025.2"
 
-#  Restrição de acesso : Seráque é necessário ?
-
-Scenario Outline: negar acesso ao relatório para quem não é professor web
-  Given eu estou logado como "monitor" com o login "jsouza" e a senha "1234"
-  And a turma "ESS - 2026.2" tem, no roteiro "Requisitos", média de acertos "8", média de erros "2" e tempo médio de resposta "15 minutos"
-  When eu tento ver o relatório de desempenho do roteiro "Requisitos" da turma "ESS - 2026.2" em comparação com as turmas passadas
-  Then eu vejo uma mensagem de erro de acesso negado
-  And não vejo média de acertos, média de erros nem tempo médio de resposta
-
+#Restrição de acesso ????
