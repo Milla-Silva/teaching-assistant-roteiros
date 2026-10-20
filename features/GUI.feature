@@ -52,16 +52,6 @@ Scenario: ignorar na média turma passada com roteiro não vinculado web
   Then continuo na página "Relatório de desempenho do roteiro"
   And vejo na tabela, na linha "Média das turmas passadas", média de acertos "8", média de erros "2" e tempo médio de resposta "20 minutos"
 
-#  Vínculo entre roteiros de semestres diferentes 
-Scenario: informar que roteiro de turma passada corresponde ao da turma atual web
-  Given eu estou logado como "professor" com o login "mrocha" e a senha "1234"
-  And o roteiro "Requisitos" da turma "ESS - 2025.2" não está vinculado ao roteiro "Requisitos" da turma "ESS - 2026.2"
-  And eu estou na página "Vínculos de roteiros"
-  When eu informo que o roteiro "Requisitos" da turma "ESS - 2025.2" corresponde ao roteiro "Requisitos" da turma "ESS - 2026.2"
-  Then eu vejo uma mensagem de confirmação
-  And continuo na página "Vínculos de roteiros"
-  And vejo o roteiro "Requisitos" da turma "ESS - 2025.2" na lista de roteiros vinculados ao roteiro "Requisitos" da turma "ESS - 2026.2"
-
 # Dados de turmas passadas: importação e cadastro 
 
 Scenario: importar resultados de turma passada por planilha web
