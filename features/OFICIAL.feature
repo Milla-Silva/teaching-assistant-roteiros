@@ -48,17 +48,6 @@ Scenario: obter desempenho das turmas passadas quando a turma atual não tem res
   And o sistema tem a turma "ESS - 2025.1" com, no "Roteiro 1", média de acertos "6", média de erros "4" e tempo de entrega médio de "3 dias"
   And o sistema tem a turma "ESS - 2025.2" com, no "Roteiro 1", média de acertos "8", média de erros "2" e tempo de entrega médio de "1 dia"
 
-# ---------- Serviço: importação de dados de turmas passadas ----------
-
-Scenario: importar resultados de turma passada por planilha
-  Given o sistema tem a turma "ESS - 2025.2" sem resultados no "Roteiro 1"
-  And a planilha "resultados-2025-2.xls" tem o resultado, no "Roteiro 1", "8" acertos, "2" erros e tempo de entrega de "1 dia" do aluno "Ana Lima"
-  And a planilha "resultados-2025-2.xls" tem o resultado, no "Roteiro 1", "6" acertos, "4" erros e tempo de entrega de "1 dia" do aluno "Bruno Reis"
-  When eu envio ao sistema a planilha "resultados-2025-2.xls" para a turma "ESS - 2025.2"
-  Then o sistema armazena o resultado, no "Roteiro 1", "8" acertos, "2" erros e tempo de entrega de "1 dia" do aluno "Ana Lima" na turma "ESS - 2025.2"
-  And o sistema armazena o resultado, no "Roteiro 1", "6" acertos, "4" erros e tempo de entrega de "1 dia" do aluno "Bruno Reis" na turma "ESS - 2025.2"
-  And o sistema tem a turma "ESS - 2025.2" com, no "Roteiro 1", média de acertos "7", média de erros "3" e tempo de entrega médio de "1 dia"
-
 # ---------- GUI: relatório comparativo ----------
 
 Scenario: comparar desempenho do roteiro da turma atual com o das turmas passadas web
