@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 
+import { Aluno } from './aluno';
+import { AlunoService } from './aluno.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.html',
@@ -8,11 +11,10 @@ import { Component } from '@angular/core';
 })
 export class App {
   aluno: Aluno = {nome: "", cpf: "", email: "", login: ""};
-}
+  alunoService = new AlunoService();
 
-export class Aluno {
-  nome: string;
-  cpf: string;
-  email: string;
-  login: string;
+  gravar(a: Aluno): void {
+    this.alunoService.gravar(a);
+    this.aluno = {nome: "", cpf: "", email: "", login: ""};
+  }
 }
