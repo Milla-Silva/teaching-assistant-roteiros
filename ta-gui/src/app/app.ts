@@ -7,11 +7,12 @@ import { Component } from '@angular/core';
   styleUrl: './app.css'
 })
 export class App {
-  aluno: Aluno = {nome: "", cpf: "", email: ""};
+  aluno: Aluno = {nome: "", cpf: "", email: "", login: ""};
 }
 
 export class Aluno {
   nome: string;
   cpf: string;
   email: string;
+  login: string;
 }
